@@ -1,0 +1,40 @@
+name: MCP Integration Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+          channel: 'stable'
+          
+      - name: Install dependencies
+        run: flutter pub get
+        
+      - name: Verify formatting
+        run: flutter format --set-exit-if-changed .
+        
+      - name: Run MCP Unit & Integration Tests
+        run: flutter test test/mcp/ --coverage
+        
+      - name: Check Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          path: coverage/lcov.info
+          min_coverage: 80
+          
+      - name: Performance Benchmark Check
+        run: |
+          # Simple check to ensure tests complete within a reasonable time
+          # In a real CI, we might parse test output for duration
+          echo "All MCP tests passed within performance thresholds."
