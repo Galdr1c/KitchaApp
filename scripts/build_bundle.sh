@@ -2,7 +2,7 @@
 
 # Build App Bundle for Google Play Store
 
-echo "🚀 Building YemekYardimciApp App Bundle..."
+echo "🚀 Building KitchaApp App Bundle..."
 
 # Clean previous builds
 echo "📦 Cleaning previous builds..."

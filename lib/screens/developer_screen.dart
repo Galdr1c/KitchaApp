@@ -95,7 +95,7 @@ class _DeveloperScreenState extends State<DeveloperScreen> with SingleTickerProv
                     dense: true,
                     title: Text(tool['name']),
                     subtitle: Text(tool['description'] ?? '', maxLines: 1, overflow: TextOverflow.ellipsis),
-                    trailing: const Icon(Icons.test_confirmation, size: 16),
+                    trailing: const Icon(Icons.play_arrow, size: 16),
                     onTap: () => _testTool(server, tool),
                   ))
                 else

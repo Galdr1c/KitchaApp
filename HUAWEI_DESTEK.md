@@ -34,7 +34,7 @@
 ## Test Etme
 
 ```powershell
-cd D:\YemekYardimciApp
+cd D:\KitchaApp
 flutter clean
 flutter pub get
 flutter run

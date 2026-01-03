@@ -2,6 +2,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        // HMS Maven for Huawei device support (lightweight, no setup needed)
+        maven { url 'https://developer.huawei.com/repo/' }
     }
 }
 

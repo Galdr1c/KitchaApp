@@ -5,17 +5,17 @@ import 'package:kitcha_app/main.dart';
 void main() {
   testWidgets('App smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const YemekYardimciApp());
+    await tester.pumpWidget(const KitchaApp());
 
     // Wait for permissions wrapper
     await tester.pump(const Duration(seconds: 2));
 
     // Verify app title is shown
-    expect(find.text('YemekYardımcı'), findsOneWidget);
+    expect(find.text('KitchaApp'), findsOneWidget);
   });
 
   testWidgets('Home screen loads', (WidgetTester tester) async {
-    await tester.pumpWidget(const YemekYardimciApp());
+    await tester.pumpWidget(const KitchaApp());
     await tester.pumpAndSettle();
 
     // Check for navigation items

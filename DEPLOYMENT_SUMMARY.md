@@ -115,7 +115,7 @@ flutter build appbundle --release
 
 ## 📱 App Configuration
 
-- **Package**: `com.yemekapp.yemek_yardimci_app`
+- **Package**: `com.kitcha_app`
 - **Min SDK**: 21 (Android 5.0)
 - **Target SDK**: Latest
 - **Version**: 1.0.0+1

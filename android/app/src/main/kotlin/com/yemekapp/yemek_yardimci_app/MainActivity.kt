@@ -1,4 +1,4 @@
-package com.yemekapp.yemek_yardimci_app
+package com.kitcha_app
 
 import io.flutter.embedding.android.FlutterActivity
 

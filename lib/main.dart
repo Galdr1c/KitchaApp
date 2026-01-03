@@ -8,6 +8,9 @@ import 'providers/theme_provider.dart';
 import 'providers/profile_provider.dart';
 import 'providers/connectivity_provider.dart';
 import 'providers/sync_provider.dart';
+import 'providers/subscription_provider.dart';
+import 'providers/accessibility_provider.dart';
+import 'providers/gamification_provider.dart';
 import 'services/permission_service.dart';
 import 'services/app_service.dart';
 import 'services/firebase_service.dart';
@@ -29,10 +32,12 @@ import 'services/memory_mcp_service.dart';
 import 'services/notification_mcp_service.dart';
 import 'services/mcp_manager_service.dart';
 import 'screens/developer_screen.dart';
+import 'utils/platform_detector.dart';
 
 import 'config/env.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'services/remote_config_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,6 +83,9 @@ Future<void> _startApp() async {
 
       // Initialize MCP Manager
       McpManagerService().initialize();
+      
+      // Initialize Remote Config Service for A/B testing
+      await RemoteConfigService().initialize();
     } else {
       print('⚠️ [Kitcha] Firebase initialized but not available (likely missing config)');
     }
@@ -108,6 +116,37 @@ Future<void> _startApp() async {
 }
 
 /// Main application widget with theme configuration
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Kitcha',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: FutureBuilder<bool>(
+        future: PlatformDetector.isHuaweiDevice(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
+          
+          // HMS cihazda direkt ana ekran
+          if (snapshot.data == true) {
+            return MainScreen();
+          }
+          
+          // GMS cihazda login ekranı
+          return LoginScreen();
+        },
+      ),
+    );
+  }
+}
+
+
 class KitchaApp extends StatelessWidget {
   const KitchaApp({super.key});
 
@@ -122,10 +161,16 @@ class KitchaApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProfileProvider()..loadProfile()),
         ChangeNotifierProvider(create: (_) => SyncProvider()),
         ChangeNotifierProvider(create: (_) => McpManagerService()),
+        ChangeNotifierProvider(create: (_) => SubscriptionProvider()..initialize()),
+        ChangeNotifierProvider(create: (_) => AccessibilityProvider()..loadSavedPreferences()),
+        ChangeNotifierProvider(create: (_) => GamificationProvider()..loadStats()),
       ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, _) {
-          return MaterialApp(
+      child: Consumer2<ThemeProvider, AccessibilityProvider>(
+        builder: (context, themeProvider, accessibilityProvider, _) {
+          return ColorFiltered(
+            colorFilter: accessibilityProvider.colorFilter ?? 
+                const ColorFilter.mode(Colors.transparent, BlendMode.dst),
+            child: MaterialApp(
             title: AppConstants.appName,
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
@@ -175,6 +220,7 @@ class KitchaApp extends StatelessWidget {
                 ],
               );
             },
+            ),
           );
         },
       ),

@@ -50,7 +50,7 @@ adb devices
 ### 6. Flutter Cihaz Kontrolü
 
 ```powershell
-cd D:\YemekYardimciApp
+cd D:\KitchaApp
 flutter devices
 ```
 

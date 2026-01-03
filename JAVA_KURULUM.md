@@ -28,7 +28,7 @@ Java versiyonunun 17 olduğunu görmelisiniz.
 
 ### Adım 4: Uygulamayı Çalıştırın
 ```powershell
-cd D:\YemekYardimciApp
+cd D:\KitchaApp
 flutter clean
 flutter run
 ```

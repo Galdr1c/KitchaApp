@@ -25,7 +25,7 @@ class AppRepository {
   /// Initialize the database with schemas
   Future<Database> _initDb() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'yemek_yardimci.db');
+    final path = join(dbPath, 'kitcha.db');
 
     print('[AppRepository] Initializing database at: $path');
 

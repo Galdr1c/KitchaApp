@@ -1,6 +1,6 @@
 # Build App Bundle for Google Play Store (PowerShell)
 
-Write-Host "🚀 Building YemekYardimciApp App Bundle..." -ForegroundColor Green
+Write-Host "🚀 Building KitchaApp App Bundle..." -ForegroundColor Green
 
 # Clean previous builds
 Write-Host "📦 Cleaning previous builds..." -ForegroundColor Yellow

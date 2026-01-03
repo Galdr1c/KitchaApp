@@ -16,7 +16,7 @@ class AiSuggestionCard extends StatefulWidget {
 
 class _AiSuggestionCardState extends State<AiSuggestionCard> {
   String? _context;
-  List<RecipeModel>? _suggestions;
+  List<Recipe>? _suggestions;
   bool _isLoading = true;
 
   @override
@@ -125,7 +125,7 @@ class _AiSuggestionCardState extends State<AiSuggestionCard> {
                     duration: const Duration(milliseconds: 375),
                     child: FadeInAnimation(
                       child: ActionChip(
-                        label: Text(_suggestions![index].name),
+                        label: Text(_suggestions![index].title),
                         backgroundColor: Colors.white,
                         labelStyle: const TextStyle(color: AppTheme.primaryColor, fontSize: 12, fontWeight: FontWeight.w600),
                         onPressed: () {

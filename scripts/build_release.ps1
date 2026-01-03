@@ -1,6 +1,6 @@
-# Build release APK script for YemekYardimciApp (PowerShell)
+# Build release APK script for KitchaApp (PowerShell)
 
-Write-Host "🚀 Building YemekYardimciApp Release APK..." -ForegroundColor Green
+Write-Host "🚀 Building KitchaApp Release APK..." -ForegroundColor Green
 
 # Clean previous builds
 Write-Host "📦 Cleaning previous builds..." -ForegroundColor Yellow

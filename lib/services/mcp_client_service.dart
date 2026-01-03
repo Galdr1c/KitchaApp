@@ -5,9 +5,6 @@ import 'package:http/http.dart' as http;
 import '../models/mcp_server_config.dart';
 import 'sentry_service.dart';
 import 'firebase_mcp_service.dart';
-import 'package:http_certificate_pinning/http_certificate_pinning.dart';
-
-import '../config/env.dart';
 
 /// A custom, high-performance MCP Client Service for KitchaApp.
 /// Implements MCP protocol over HTTP with robust error handling and logging.
@@ -29,6 +26,15 @@ class McpClientService {
 
   /// Callback for logging MCP calls (used by McpManagerService)
   void Function(McpCallLog)? onLog;
+
+  /// Initialize the MCP client service
+  Future<void> initialize() async {
+    _log('🚀 [MCP Client] Initializing...', level: _LogLevel.info);
+    // Clear any stale cache
+    _cache.clear();
+    _cacheTimestamps.clear();
+    _log('✅ [MCP Client] Initialized successfully', level: _LogLevel.info);
+  }
 
   /// calls a specific tool on an MCP server.
   Future<Map<String, dynamic>> callTool(
@@ -168,24 +174,6 @@ class McpClientService {
 
   Future<Map<String, dynamic>> _postRequest(String url, Map<String, dynamic> body) async {
     try {
-      // Production Certificate Pinning check
-      if (Env.isProduction) {
-        final fingerprints = [
-          'SHA-256-FINGERPRINT-1', // Placeholder: Actual fingerprint should be provided
-        ];
-        try {
-          await HttpCertificatePinning.check(
-            serverURL: url,
-            headerHttp: {'Content-Type': 'application/json'},
-            sha: SHA.SHA256,
-            allowedSHAFingerprints: fingerprints,
-            timeout: 10,
-          );
-        } catch (e) {
-          throw McpException('Certificate Pinning Error: SSL handshake failed for $url');
-        }
-      }
-
       final response = await _httpClient.post(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
@@ -205,6 +193,7 @@ class McpClientService {
     } on http.ClientException catch (e) {
       throw McpException('Network Error: ${e.message}');
     } catch (e) {
+      if (e is McpException) rethrow;
       throw McpException('Unexpected Error: $e');
     }
   }

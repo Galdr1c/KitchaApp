@@ -9,7 +9,7 @@ class Env {
   
   // MCP Servers
   static String get recipeMcpUrl => isProduction 
-    ? 'https://api.yemekyardimci.com/mcp/recipes'
+    ? 'https://api.kitchaapp.com/mcp/recipes'
     : 'http://localhost:8080/mcp/recipes';
     
   // API Keys (fetched from dart-define for security in production)

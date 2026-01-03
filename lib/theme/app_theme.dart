@@ -122,7 +122,7 @@ class AppTheme {
         labelStyle: const TextStyle(color: neutralGray),
       ),
 
-      cardTheme: const CardThemeData(
+      cardTheme: CardThemeData(
         color: const Color(0xFF252525),
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

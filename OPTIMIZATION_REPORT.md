@@ -2,7 +2,7 @@
 
 ## Summary
 
-This document outlines the performance optimizations implemented in YemekYardimciApp.
+This document outlines the performance optimizations implemented in KitchaApp.
 
 ## Image Optimization
 

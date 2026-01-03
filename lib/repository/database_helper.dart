@@ -19,7 +19,7 @@ class DatabaseHelper {
   /// Initialize the database
   Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'yemek_yardimci.db');
+    final path = join(dbPath, 'kitcha.db');
 
     return await openDatabase(
       path,

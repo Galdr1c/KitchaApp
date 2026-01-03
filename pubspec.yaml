@@ -86,9 +86,11 @@ dependencies:
   confetti: ^0.7.0
   flutter_secure_storage: ^9.2.2
   dio: ^5.7.0
-  http_certificate_pinning: ^2.0.4
+  # http_certificate_pinning removed - causes Kotlin version conflicts
   sentry_flutter: ^8.10.0
   sqflite_sqlcipher: ^3.1.2+1
+  # Platform detection for HMS support
+  device_info_plus: ^10.1.0
 
 dev_dependencies:
   flutter_test:
@@ -104,8 +106,10 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/animations/
     - assets/config/
     - .env
+
 
 flutter_native_splash:
   color: "#1E1E1E"

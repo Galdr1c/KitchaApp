@@ -165,7 +165,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               const Icon(Icons.people, color: Colors.white, size: 14),
                               const SizedBox(width: 4),
                               Text(
-                                '${(displayRecipe.id % 50) + 124} kişi bunu sevdi',
+                                '${((displayRecipe.id ?? 0) % 50) + 124} kişi bunu sevdi',
                                 style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
                               ),
                             ],

@@ -55,9 +55,13 @@ class MemoryMcpService {
     if (_hasApiKey) {
       try {
         final response = await _mcpClient.callTool('mem0', 'get_memories', {});
-        // Response format depends on MCP implementation, assuming List<String>
-        if (response is List) {
-          return response.map((e) => e.toString()).toList();
+        // Response is Map from callTool, extract memories list
+        if (response.containsKey('memories') && response['memories'] is List) {
+          return (response['memories'] as List).map((e) => e.toString()).toList();
+        }
+        // Fallback: return content if available
+        if (response.containsKey('content')) {
+          return [response['content'].toString()];
         }
       } catch (e) {
         print('[MemoryMcpService] Get memories error: $e');
